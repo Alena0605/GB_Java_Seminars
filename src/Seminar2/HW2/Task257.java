@@ -4,38 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Task257 {
+    static List<String> ans = new ArrayList<>();
+
     public static void main(String[] args) {
-        System.out.println("Решение задачи 257");
+        // Создаем дерево
+        // -------------------------------------
+        TreeNode tree = new TreeNode(1);
+        TreeNode left = new TreeNode(2);
+        TreeNode right = new TreeNode(3);
+
+        tree.left = left;
+        tree.right = right;
+
+        left.left = new TreeNode(5);
+        // -------------------------------------
+
+        System.out.println(binaryTreePaths(tree));
     }
 
-    public List<String> binaryTreePaths(TreeNode root) {
-        List<String> ans = new ArrayList<>();
-
-        if (root != null) {
-            StringBuilder sb = new StringBuilder();
-            dfs(root, ans, sb);
-        }
-
+    public static List<String> binaryTreePaths(TreeNode root) {
+        dfs(root, "");
         return ans;
     }
 
-    public void dfs(TreeNode root, List<String> ans, StringBuilder sb) {
+    private static void dfs(TreeNode root, String path) {
+        if (root == null) return;
+
         if (root.left == null && root.right == null) {
-            sb.append(root.val);
-            ans.add(sb.toString());
+            ans.add(path + root.val);
             return;
         }
 
-        if (root.left != null) {
-            String nowList = sb.toString();
-            sb.append(root.val).append("->");
-            dfs(root.left, ans, sb);
-            sb = new StringBuilder(nowList);
-        }
-
-        if (root.right != null) {
-            sb.append(root.val).append("->");
-            dfs(root.right, ans, sb);
-        }
+        dfs(root.left, path + root.val + "->");
+        dfs(root.right, path + root.val + "->");
     }
 }

@@ -15,24 +15,22 @@ public class Task695 {
     }
 
     public static int maxAreaOfIsland(int[][] grid) {
-        int maxCount = 0;
+        int maxArea = 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] == 1) {
-                    maxCount = Math.max(maxCount, dfs(grid, i, j));
-                }
+                maxArea = Math.max(maxArea, dfs(grid, i, j));
             }
         }
-        return maxCount;
+        return maxArea;
     }
 
-    public static int dfs(int[][] grid, int i, int j) {
+    private static int dfs(int[][] grid, int i, int j) {
         if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] != 1) {
             return 0;
         }
 
         grid[i][j] = -1;
 
-        return dfs(grid, i - 1, j) + dfs(grid, i + 1, j) + dfs(grid, i, j - 1) + dfs(grid, i, j + 1) + 1;
+        return (1 + dfs(grid, i - 1, j) + dfs(grid, i + 1, j) + dfs(grid, i, j - 1) + dfs(grid, i, j + 1));
     }
 }

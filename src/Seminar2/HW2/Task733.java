@@ -14,21 +14,21 @@ public class Task733 {
     }
 
     public static int[][] floodFill(int[][] image, int sr, int sc, int color) {
-        int nowColor = image[sr][sc];
-        if (nowColor != color) dfs(image, sr, sc, nowColor, color);
+        int oldColor = image[sr][sc];
+        dfs(image, sr, sc, oldColor, color);
         return image;
     }
 
-    public static void dfs(int[][] image, int sr, int sc, int nowColor, int color) {
-        if (sr < 0 || sr >= image.length || sc < 0 || sc >= image[0].length || image[sr][sc] != nowColor) {
+    private static void dfs(int[][] img, int row, int column, int oldCol, int newCol) {
+        if (row < 0 || row >= img.length || column < 0 || column >= img[0].length || img[row][column] != oldCol) {
             return;
         }
 
-        image[sr][sc] = color;
+        img[row][column] = newCol;
 
-        dfs(image, sr - 1, sc, nowColor, color);
-        dfs(image, sr + 1, sc, nowColor, color);
-        dfs(image, sr, sc - 1, nowColor, color);
-        dfs(image, sr, sc + 1, nowColor, color);
+        dfs(img, row - 1, column, oldCol, newCol);
+        dfs(img, row + 1, column, oldCol, newCol);
+        dfs(img, row, column - 1, oldCol, newCol);
+        dfs(img, row, column + 1, oldCol, newCol);
     }
 }
